@@ -11,7 +11,6 @@ Vue.component('products', {
         this.$parent.getJson(`/api/products`)
             .then(data => {
                 for (let item of data) {
-                    item.imgPath = `img/${item.id_product}.png`;
                     this.$data.products.push(item);
                     this.$data.filtered.push(item);
                 }
@@ -26,7 +25,7 @@ Vue.component('products', {
     template: `<div class="products">
                 <product v-for="item of filtered" 
                 :key="item.id_product" 
-                :img="item.imgPath"
+                :img="'img/'+item.id_product+'.png'"
                 :product="item"
                 @add-product="$parent.$refs.cart.addProduct"></product>
                </div>`

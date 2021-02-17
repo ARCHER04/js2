@@ -12,7 +12,6 @@ Vue.component('cart', {
         this.$parent.getJson(`/api/cart`)
             .then(data => {
                 for (let item of data.contents) {
-                    item.imgPath = `img/${item.id_product}.png`;
                     this.$data.cartItems.push(item);
                 }
             });
@@ -29,7 +28,6 @@ Vue.component('cart', {
                     })
             } else {
                 const prod = Object.assign({ quantity: 1 }, item);
-                item.imgPath = `img/${item.id_product}.png`;
                 this.$parent.postJson(`/api/cart`, prod)
                     .then(data => {
                         if (data.result === 1) {
@@ -67,7 +65,7 @@ Vue.component('cart', {
     template: `<div>
 <button class="btn-cart" type="button" @click="showCart = !showCart">Корзина</button>
         <div class="cart-block" v-show="showCart">
-            <cart-item v-for="item of cartItems" :key="item.id_product" :img="item.imgPath" :cart-item="item" @remove="remove">
+            <cart-item v-for="item of cartItems" :key="item.id_product" :img="'img/'+item.id_product+'.png'" :cart-item="item" @remove="remove">
             </cart-item>
         </div>
         </div>
